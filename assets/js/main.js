@@ -11,7 +11,7 @@ function checkThreshold(timeStamp) {
     if (timeStamp - previousTimeStamp < thresholdValue) {
         indicator.style.backgroundColor = 'red'
         duplicateActions++
-        duplicateActionCounter.innerText = duplicateActions
+        duplicateActionCounter.innerHTML = duplicateActions
     }
     else {
         indicator.style.backgroundColor = 'green'
@@ -56,12 +56,12 @@ interaction.addEventListener('mousedown', ev => {
         rightClicks.innerHTML = totalRightClicks
     }
     else if (button === 3) {
-        totalForwardClicks++
-        forwardClicks.innerHTML = totalForwardClicks
-    }
-    else if (button === 4) {
         totalBackwardClicks++
         backwardClicks.innerHTML = totalBackwardClicks
+    }
+    else if (button === 4) {
+        totalForwardClicks++
+        forwardClicks.innerHTML = totalForwardClicks
     }
 })
 
