@@ -1,0 +1,17 @@
+td {
+  border-style: none;
+}
+
+#indicator {
+  height: 15vh;
+  font-weight: 700;
+}
+
+#interaction {
+  height: 70vh;
+}
+
+#threshold {
+  margin-right: 10rem;
+}
+
