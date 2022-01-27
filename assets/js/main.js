@@ -1,14 +1,15 @@
-const interaction = document.getElementById('interaction')
+const buttonArea = document.getElementById('button-area')
+const pollingArea = document.getElementById('polling-area')
 const indicator = document.getElementById('indicator')
 const threshold = document.getElementById('threshold')
 const duplicateActionCounter = document.getElementById('duplicate-actions')
 
-let previousTimeStamp
+let previousClickTimeStamp
 let thresholdValue = threshold.value
 let duplicateActions = 0
 
 function checkThreshold(timeStamp) {
-    if (timeStamp - previousTimeStamp < thresholdValue) {
+    if (timeStamp - previousClickTimeStamp < thresholdValue) {
         indicator.style.backgroundColor = 'red'
         duplicateActions++
         duplicateActionCounter.innerHTML = duplicateActions
@@ -17,7 +18,7 @@ function checkThreshold(timeStamp) {
         indicator.style.backgroundColor = 'green'
     }
 
-    previousTimeStamp = timeStamp
+    previousClickTimeStamp = timeStamp
 }
 
 const leftClicks = document.getElementById('left-clicks')
@@ -35,7 +36,7 @@ let totalForwardClicks = 0
 const backwardClicks = document.getElementById('backward-clicks')
 let totalBackwardClicks = 0
 
-interaction.addEventListener('mousedown', ev => {
+buttonArea.addEventListener('mousedown', ev => {
     ev.preventDefault()
     ev.stopPropagation()
 
@@ -71,7 +72,7 @@ let totalScrollUps = 0
 const scrollDowns = document.getElementById('scroll-downs')
 let totalScrollDowns = 0
 
-interaction.addEventListener('wheel', ev => {
+buttonArea.addEventListener('wheel', ev => {
     ev.preventDefault()
     ev.stopPropagation()
 
@@ -88,6 +89,25 @@ interaction.addEventListener('wheel', ev => {
         scrollDowns.innerHTML = totalScrollDowns
     }
 })
+
+const polling = document.getElementById('polling')
+let moveDeltas = 0
+let moveCounter = 0
+let previousMoveTimeStamp = 0
+
+pollingArea.addEventListener('pointermove', ev => {
+    for (const event of ev.getCoalescedEvents()) {
+        const timeStamp = event.timeStamp
+        moveDeltas += timeStamp - previousMoveTimeStamp
+        moveCounter++
+        previousMoveTimeStamp = timeStamp
+    }
+})
+
+setInterval(() => {
+    polling.innerHTML = (Math.round(1000 / (moveDeltas / moveCounter)) || '0') + ' Hz'
+    moveDeltas = moveCounter = 0
+}, 1000)
 
 threshold.addEventListener('input', ev => {
     thresholdValue = threshold.value

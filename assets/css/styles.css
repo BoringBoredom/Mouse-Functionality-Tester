@@ -2,16 +2,13 @@ td {
   border-style: none;
 }
 
-#indicator {
-  height: 15vh;
-  font-weight: 700;
-}
-
-#interaction {
-  height: 70vh;
-}
-
-#threshold {
-  margin-right: 10rem;
+#button-area, #polling-area {
+  width: 50vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  margin: 1rem;
+  border: 1px solid rgba(0,0,0,0.1);
 }
 

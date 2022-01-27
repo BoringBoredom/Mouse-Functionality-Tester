@@ -18,7 +18,7 @@
 
 <body>
     <div class="text-center">
-        <div class="d-flex justify-content-center align-items-center" id="indicator" style="background-color: green;"><label class="form-label" style="margin-right: 1rem;margin-bottom: 0px;">Threshold in ms</label><input type="number" id="threshold" min="1" max="999" value="50"><label class="form-label" style="margin-bottom: 0px;margin-right: 1rem;">Duplicate Actions</label>
+        <div class="d-flex justify-content-center align-items-center" id="indicator" style="background-color: green;height: 10vh;font-weight: 700;"><label class="form-label" style="margin-right: 1rem;margin-bottom: 0px;">Threshold in ms</label><input type="number" id="threshold" min="1" max="999" value="50" style="margin-right: 10rem;"><label class="form-label" style="margin-bottom: 0px;margin-right: 1rem;">Duplicate Actions</label>
             <p id="duplicate-actions" style="margin-bottom: 0px;">0</p>
         </div>
         <div class="d-inline-flex justify-content-center" style="width: 40%;height: 15vh;">
@@ -33,6 +33,7 @@
                             <th>Backward Clicks</th>
                             <th>Scroll Ups</th>
                             <th>Scroll Downs</th>
+                            <th><a href="https://developer.mozilla.org/en-US/docs/Web/API/DOMHighResTimeStamp" target="_blank">Approx. Polling</a></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -44,13 +45,19 @@
                             <td id="backward-clicks">0</td>
                             <td id="scroll-ups">0</td>
                             <td id="scroll-downs">0</td>
+                            <td id="polling">0 Hz</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-        <div class="d-flex justify-content-center align-items-center" id="interaction">
-            <h1>Interaction Area</h1>
+        <div class="d-flex" style="height: 75vh;">
+            <div id="button-area">
+                <h1>Button Area</h1>
+            </div>
+            <div id="polling-area">
+                <h1>Polling Area</h1>
+            </div>
         </div>
     </div>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
