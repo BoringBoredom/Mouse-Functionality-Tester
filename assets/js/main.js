@@ -1,6 +1,5 @@
 const buttonArea = document.getElementById('button-area')
 const pollingArea = document.getElementById('polling-area')
-const pollingResults = document.getElementById('polling-results')
 const indicator = document.getElementById('indicator')
 const threshold = document.getElementById('threshold')
 const duplicateActionCounter = document.getElementById('duplicate-actions')
@@ -91,19 +90,24 @@ buttonArea.addEventListener('wheel', ev => {
     }
 })
 
+const pollingRate = document.getElementById('polling-rate')
+let moveDeltas = 0
+let moveCounter = 0
 let previousMoveTimeStamp = 0
-let frequencies = []
 
 pollingArea.addEventListener('pointermove', ev => {
     for (const event of ev.getCoalescedEvents()) {
         const timeStamp = event.timeStamp
-        const frequency = Math.round(1000 / (timeStamp - previousMoveTimeStamp))
+        moveDeltas += timeStamp - previousMoveTimeStamp
+        moveCounter++
         previousMoveTimeStamp = timeStamp
-        frequencies.unshift(frequency)
-        frequencies = frequencies.slice(0, 27)
-        pollingResults.innerHTML = frequencies.join('\n')
     }
 })
+
+setInterval(() => {
+    pollingRate.innerHTML = (Math.round(1000 / (moveDeltas / moveCounter)) || '0') + ' Hz'
+    moveDeltas = moveCounter = 0
+}, 200)
 
 threshold.addEventListener('input', ev => {
     thresholdValue = threshold.value

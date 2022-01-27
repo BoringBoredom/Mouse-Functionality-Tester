@@ -3,7 +3,7 @@ td {
 }
 
 #button-area, #polling-area {
-  width: 48vw;
+  width: 50vw;
   display: flex;
   align-items: center;
   justify-content: center;
