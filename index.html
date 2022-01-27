@@ -33,7 +33,7 @@
                             <th>Backward Clicks</th>
                             <th>Scroll Ups</th>
                             <th>Scroll Downs</th>
-                            <th>Approx. Polling</th>
+                            <th id="stop-polling">Approx. Polling</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,19 +45,18 @@
                             <td id="backward-clicks">0</td>
                             <td id="scroll-ups">0</td>
                             <td id="scroll-downs">0</td>
-                            <td id="polling-rate">0 Hz</td>
+                            <td class="d-flex justify-content-center">
+                                <div id="polling-rate"></div>&nbsp;Hz
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
         <div class="d-flex" style="height: 75vh;">
-            <div id="button-area">
-                <h1>Button Area</h1>
-            </div>
-            <div id="polling-area">
+            <div id="interaction" style="width: 100vw;display: flex;align-items: center;justify-content: center;border-radius: 15px;margin: 1rem;border: 1px solid rgba(0,0,0,0.1);">
                 <div>
-                    <h1>Polling Area</h1>
+                    <h1>Interaction Area</h1>
                     <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/DOMHighResTimeStamp" target="_blank">browsers are inaccurate</a></p>
                 </div>
             </div>

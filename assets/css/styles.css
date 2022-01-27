@@ -2,13 +2,7 @@ td {
   border-style: none;
 }
 
-#button-area, #polling-area {
-  width: 50vw;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 15px;
-  margin: 1rem;
-  border: 1px solid rgba(0,0,0,0.1);
+#stop-polling:hover {
+  cursor: pointer;
 }
 

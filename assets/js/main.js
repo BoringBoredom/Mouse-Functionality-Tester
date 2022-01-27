@@ -1,5 +1,4 @@
-const buttonArea = document.getElementById('button-area')
-const pollingArea = document.getElementById('polling-area')
+const interaction = document.getElementById('interaction')
 const indicator = document.getElementById('indicator')
 const threshold = document.getElementById('threshold')
 const duplicateActionCounter = document.getElementById('duplicate-actions')
@@ -36,7 +35,7 @@ let totalForwardClicks = 0
 const backwardClicks = document.getElementById('backward-clicks')
 let totalBackwardClicks = 0
 
-buttonArea.addEventListener('mousedown', ev => {
+interaction.addEventListener('mousedown', ev => {
     ev.preventDefault()
     ev.stopPropagation()
 
@@ -72,7 +71,7 @@ let totalScrollUps = 0
 const scrollDowns = document.getElementById('scroll-downs')
 let totalScrollDowns = 0
 
-buttonArea.addEventListener('wheel', ev => {
+interaction.addEventListener('wheel', ev => {
     ev.preventDefault()
     ev.stopPropagation()
 
@@ -91,23 +90,33 @@ buttonArea.addEventListener('wheel', ev => {
 })
 
 const pollingRate = document.getElementById('polling-rate')
+let isPolling = true
 let moveDeltas = 0
 let moveCounter = 0
 let previousMoveTimeStamp = 0
 
-pollingArea.addEventListener('pointermove', ev => {
+document.getElementById('stop-polling').addEventListener('click', ev => {
+    isPolling = !isPolling
+    pollingRate.innerHTML = '?'
+})
+
+interaction.addEventListener('pointermove', ev => {
+    if (!isPolling) {
+        return
+    }
+
     for (const event of ev.getCoalescedEvents()) {
         const timeStamp = event.timeStamp
         moveDeltas += timeStamp - previousMoveTimeStamp
         moveCounter++
         previousMoveTimeStamp = timeStamp
+
+        if (moveDeltas >= 200) {
+            pollingRate.innerHTML = Math.round(1000 / (moveDeltas / moveCounter)) || '?'
+            moveDeltas = moveCounter = 0
+        }
     }
 })
-
-setInterval(() => {
-    pollingRate.innerHTML = (Math.round(1000 / (moveDeltas / moveCounter)) || '0') + ' Hz'
-    moveDeltas = moveCounter = 0
-}, 200)
 
 threshold.addEventListener('input', ev => {
     thresholdValue = threshold.value
