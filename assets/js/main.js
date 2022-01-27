@@ -95,16 +95,7 @@ let moveDeltas = 0
 let moveCounter = 0
 let previousMoveTimeStamp = 0
 
-document.getElementById('stop-polling').addEventListener('click', ev => {
-    isPolling = !isPolling
-    pollingRate.innerHTML = '?'
-})
-
-interaction.addEventListener('pointermove', ev => {
-    if (!isPolling) {
-        return
-    }
-
+function displayPollingRate(ev) {
     for (const event of ev.getCoalescedEvents()) {
         const timeStamp = event.timeStamp
         moveDeltas += timeStamp - previousMoveTimeStamp
@@ -116,7 +107,20 @@ interaction.addEventListener('pointermove', ev => {
             moveDeltas = moveCounter = 0
         }
     }
+}
+
+document.getElementById('stop-polling').addEventListener('click', ev => {
+    if (isPolling) {
+        interaction.removeEventListener('pointermove', displayPollingRate)
+    }
+    else {
+        interaction.addEventListener('pointermove', displayPollingRate)
+    }
+    isPolling = !isPolling
+    pollingRate.innerHTML = '?'
 })
+
+interaction.addEventListener('pointermove', displayPollingRate)
 
 threshold.addEventListener('input', ev => {
     thresholdValue = threshold.value
