@@ -32,7 +32,10 @@ body {
 
 table {
    margin: 10px 0;
-   width: 40%;
+   width: 100%;
+   border-width: 1px;
+   border-bottom-style: solid;
+   border-color: rgba(255, 255, 255, 0.1);
 }
 
 #stop-polling:hover {
@@ -40,7 +43,7 @@ table {
 }
 
 #interaction {
-   height: 79%;
+   height: 80%;
    display: flex;
    align-items: center;
    justify-content: center;

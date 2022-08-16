@@ -118,9 +118,9 @@ document.getElementById("stop-polling").addEventListener("click", () => {
 interaction.addEventListener("pointermove", displayPollingRate);
 
 threshold.addEventListener("input", () => {
-   thresholdValue = threshold.value
+   thresholdValue = threshold.value;
 });
 
 window.addEventListener("contextmenu", ev => {
-   ev.preventDefault()
+   ev.preventDefault();
 });
