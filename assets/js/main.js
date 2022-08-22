@@ -94,7 +94,7 @@ let moveCounter = 0;
 let previousMoveTimeStamp = 0;
 
 function displayPollingRate(ev) {
-   ev.getCoalescedEvents().forEach((event) => {
+   for (const event of ev.getCoalescedEvents()) {
       const timeStamp = event.timeStamp;
       moveDeltas += timeStamp - previousMoveTimeStamp;
       moveCounter++;
@@ -105,7 +105,7 @@ function displayPollingRate(ev) {
             Math.round(1000 / (moveDeltas / moveCounter)) || "?";
          moveDeltas = moveCounter = 0;
       }
-   });
+   }
 }
 
 document.getElementById("stop-polling").addEventListener("click", () => {
