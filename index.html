@@ -1,83 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <meta charset="utf-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <title>Mouse Functionality Tester</title>
-      <meta
-         name="description"
-         content="Test your mouse's buttons (e.g. unintentional actuation or double clicks), scroll wheel and approximate polling rate"
-      />
-      <link rel="icon" href="assets/img/mouse.png" />
-      <link rel="stylesheet" href="assets/css/styles.css" />
-      <meta property="og:title" content="Mouse Functionality Tester" />
-      <meta
-         property="og:description"
-         content="Test your mouse's buttons (e.g. unintentional actuation or double clicks), scroll wheel and approximate polling rate"
-      />
-      <meta
-         property="og:image"
-         content="https://boringboredom.github.io/Mouse-Functionality-Tester/assets/img/mouse.png"
-      />
-      <meta property="og:type" content="website" />
-      <meta name="twitter:title" content="Mouse Functionality Tester" />
-      <meta
-         name="twitter:description"
-         content="Test your mouse's buttons (e.g. unintentional actuation or double clicks), scroll wheel and approximate polling rate"
-      />
-      <meta
-         name="twitter:image"
-         content="https://boringboredom.github.io/Mouse-Functionality-Tester/assets/img/mouse.png"
-      />
-      <meta name="twitter:card" content="summary" />
-   </head>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mouse Functionality Tester</title>
+    <meta
+      name="description"
+      content="Test your mouse's buttons (e.g. unintentional actuation or double clicks), scroll wheel and approximate polling rate"
+    />
+    <link rel="icon" href="assets/img/mouse.png" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <meta property="og:title" content="Mouse Functionality Tester" />
+    <meta
+      property="og:description"
+      content="Test your mouse's buttons (e.g. unintentional actuation or double clicks), scroll wheel and approximate polling rate"
+    />
+    <meta
+      property="og:image"
+      content="https://boringboredom.github.io/Mouse-Functionality-Tester/assets/img/mouse.png"
+    />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:title" content="Mouse Functionality Tester" />
+    <meta
+      name="twitter:description"
+      content="Test your mouse's buttons (e.g. unintentional actuation or double clicks), scroll wheel and approximate polling rate"
+    />
+    <meta
+      name="twitter:image"
+      content="https://boringboredom.github.io/Mouse-Functionality-Tester/assets/img/mouse.png"
+    />
+    <meta name="twitter:card" content="summary" />
+  </head>
 
-   <body>
-      <div id="indicator">
-         <label>
-            Threshold in ms
-            <input id="threshold" type="number" min="1" max="999" value="50" />
-         </label>
-         <div style="margin-right: 10px">Duplicate Actions</div>
-         <div id="duplicate-actions">0</div>
+  <body>
+    <div id="indicator">
+      <label>
+        Threshold in ms
+        <input id="threshold" type="number" min="1" max="999" value="50" />
+      </label>
+      <div style="margin-right: 10px">Duplicate Actions</div>
+      <div id="duplicate-actions">0</div>
+    </div>
+    <div id="data">
+      <table>
+        <thead>
+          <tr>
+            <th>Left Clicks</th>
+            <th>Middle Clicks</th>
+            <th>Right Clicks</th>
+            <th>Forward Clicks</th>
+            <th>Backward Clicks</th>
+            <th>Scroll Ups</th>
+            <th>Scroll Downs</th>
+            <th id="stop-polling">Approx. Polling</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td id="left-clicks">0</td>
+            <td id="middle-clicks">0</td>
+            <td id="right-clicks">0</td>
+            <td id="forward-clicks">0</td>
+            <td id="backward-clicks">0</td>
+            <td id="scroll-ups">0</td>
+            <td id="scroll-downs">0</td>
+            <td style="display: flex; justify-content: center">
+              <div id="polling-rate"></div>
+              &nbsp;Hz
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="interaction">
+      <div>
+        <h1>Interaction Area</h1>
       </div>
-      <div id="data">
-         <table>
-            <thead>
-               <tr>
-                  <th>Left Clicks</th>
-                  <th>Middle Clicks</th>
-                  <th>Right Clicks</th>
-                  <th>Forward Clicks</th>
-                  <th>Backward Clicks</th>
-                  <th>Scroll Ups</th>
-                  <th>Scroll Downs</th>
-                  <th id="stop-polling">Approx. Polling</th>
-               </tr>
-            </thead>
-            <tbody>
-               <tr>
-                  <td id="left-clicks">0</td>
-                  <td id="middle-clicks">0</td>
-                  <td id="right-clicks">0</td>
-                  <td id="forward-clicks">0</td>
-                  <td id="backward-clicks">0</td>
-                  <td id="scroll-ups">0</td>
-                  <td id="scroll-downs">0</td>
-                  <td style="display: flex; justify-content: center">
-                     <div id="polling-rate"></div>
-                     &nbsp;Hz
-                  </td>
-               </tr>
-            </tbody>
-         </table>
-      </div>
-      <div id="interaction">
-         <div>
-            <h1>Interaction Area</h1>
-         </div>
-      </div>
+    </div>
 
-      <script src="assets/js/main.js"></script>
-   </body>
+    <script src="assets/js/main.js"></script>
+  </body>
 </html>

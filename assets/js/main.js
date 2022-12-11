@@ -8,14 +8,14 @@ let thresholdValue = threshold.value;
 let duplicateActions = 0;
 
 function checkThreshold(timeStamp) {
-   if (timeStamp - previousClickTimeStamp < thresholdValue) {
-      indicator.style.backgroundColor = "red";
-      duplicateActionCounter.innerText = ++duplicateActions;
-   } else {
-      indicator.style.backgroundColor = "green";
-   }
+  if (timeStamp - previousClickTimeStamp < thresholdValue) {
+    indicator.style.backgroundColor = "red";
+    duplicateActionCounter.textContent = ++duplicateActions;
+  } else {
+    indicator.style.backgroundColor = "green";
+  }
 
-   previousClickTimeStamp = timeStamp;
+  previousClickTimeStamp = timeStamp;
 }
 
 const leftClicks = document.getElementById("left-clicks");
@@ -34,36 +34,36 @@ const backwardClicks = document.getElementById("backward-clicks");
 let totalBackwardClicks = 0;
 
 interaction.addEventListener("mousedown", (ev) => {
-   ev.preventDefault();
-   ev.stopPropagation();
+  ev.preventDefault();
+  ev.stopPropagation();
 
-   checkThreshold(ev.timeStamp);
+  checkThreshold(ev.timeStamp);
 
-   const button = ev.button;
+  const button = ev.button;
 
-   switch (button) {
-      case 0:
-         leftClicks.innerText = ++totalLeftClicks;
-         break;
-      case 1:
-         middleClicks.innerText = ++totalMiddleClicks;
-         break;
-      case 2:
-         rightClicks.innerText = ++totalRightClicks;
-         break;
-      case 3:
-         backwardClicks.innerText = ++totalBackwardClicks;
-         break;
-      case 4:
-         forwardClicks.innerText = ++totalForwardClicks;
-         break;
-   }
+  switch (button) {
+    case 0:
+      leftClicks.textContent = ++totalLeftClicks;
+      break;
+    case 1:
+      middleClicks.textContent = ++totalMiddleClicks;
+      break;
+    case 2:
+      rightClicks.textContent = ++totalRightClicks;
+      break;
+    case 3:
+      backwardClicks.textContent = ++totalBackwardClicks;
+      break;
+    case 4:
+      forwardClicks.textContent = ++totalForwardClicks;
+      break;
+  }
 });
 
 interaction.addEventListener("mouseup", (ev) => {
-   ev.preventDefault();
-   ev.stopPropagation();
-   return false;
+  ev.preventDefault();
+  ev.stopPropagation();
+  return false;
 });
 
 const scrollUps = document.getElementById("scroll-ups");
@@ -73,18 +73,18 @@ const scrollDowns = document.getElementById("scroll-downs");
 let totalScrollDowns = 0;
 
 interaction.addEventListener("wheel", (ev) => {
-   ev.preventDefault();
-   ev.stopPropagation();
+  ev.preventDefault();
+  ev.stopPropagation();
 
-   checkThreshold(ev.timeStamp);
+  checkThreshold(ev.timeStamp);
 
-   const delta = ev.wheelDeltaY;
+  const delta = ev.wheelDeltaY;
 
-   if (delta > 0) {
-      scrollUps.innerText = ++totalScrollUps;
-   } else if (delta < 0) {
-      scrollDowns.innerText = ++totalScrollDowns;
-   }
+  if (delta > 0) {
+    scrollUps.textContent = ++totalScrollUps;
+  } else if (delta < 0) {
+    scrollDowns.textContent = ++totalScrollDowns;
+  }
 });
 
 const pollingRate = document.getElementById("polling-rate");
@@ -94,39 +94,39 @@ let moveCounter = 0;
 let previousMoveTimeStamp = 0;
 
 function displayPollingRate(ev) {
-   for (const event of ev.getCoalescedEvents()) {
-      const timeStamp = event.timeStamp;
-      moveDeltas += timeStamp - previousMoveTimeStamp;
-      moveCounter++;
-      previousMoveTimeStamp = timeStamp;
+  for (const event of ev.getCoalescedEvents()) {
+    const timeStamp = event.timeStamp;
+    moveDeltas += timeStamp - previousMoveTimeStamp;
+    moveCounter++;
+    previousMoveTimeStamp = timeStamp;
 
-      if (moveDeltas >= 200) {
-         pollingRate.innerText =
-            Math.round(1000 / (moveDeltas / moveCounter)) || "?";
-         moveDeltas = moveCounter = 0;
-      }
-   }
+    if (moveDeltas >= 1000) {
+      pollingRate.textContent =
+        Math.round(1000 / (moveDeltas / moveCounter)) || "?";
+      moveDeltas = moveCounter = 0;
+    }
+  }
 }
 
 document.getElementById("stop-polling").addEventListener("click", () => {
-   if (isPolling) {
-      interaction.removeEventListener("pointermove", displayPollingRate);
-   } else {
-      interaction.addEventListener("pointermove", displayPollingRate);
-   }
+  if (isPolling) {
+    interaction.removeEventListener("pointermove", displayPollingRate);
+  } else {
+    interaction.addEventListener("pointermove", displayPollingRate);
+  }
 
-   isPolling = !isPolling;
-   pollingRate.innerText = "?";
+  isPolling = !isPolling;
+  pollingRate.textContent = "?";
 });
 
 interaction.addEventListener("pointermove", displayPollingRate);
 
 threshold.addEventListener("input", () => {
-   thresholdValue = threshold.value;
+  thresholdValue = threshold.value;
 });
 
 window.addEventListener("contextmenu", (ev) => {
-   ev.preventDefault();
-   ev.stopPropagation();
-   return false;
+  ev.preventDefault();
+  ev.stopPropagation();
+  return false;
 });
