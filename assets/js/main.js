@@ -18,20 +18,20 @@ function checkThreshold(timeStamp) {
   previousClickTimeStamp = timeStamp;
 }
 
-const leftClicks = document.getElementById("left-clicks");
-let totalLeftClicks = 0;
+const leftClicksDown = document.getElementById("left-clicks-down");
+let totalLeftClicksDown = 0;
 
-const middleClicks = document.getElementById("middle-clicks");
-let totalMiddleClicks = 0;
+const middleClicksDown = document.getElementById("middle-clicks-down");
+let totalMiddleClicksDown = 0;
 
-const rightClicks = document.getElementById("right-clicks");
-let totalRightClicks = 0;
+const rightClicksDown = document.getElementById("right-clicks-down");
+let totalRightClicksDown = 0;
 
-const forwardClicks = document.getElementById("forward-clicks");
-let totalForwardClicks = 0;
+const forwardClicksDown = document.getElementById("forward-clicks-down");
+let totalForwardClicksDown = 0;
 
-const backwardClicks = document.getElementById("backward-clicks");
-let totalBackwardClicks = 0;
+const backwardClicksDown = document.getElementById("backward-clicks-down");
+let totalBackwardClicksDown = 0;
 
 interaction.addEventListener("mousedown", (ev) => {
   ev.preventDefault();
@@ -43,27 +43,61 @@ interaction.addEventListener("mousedown", (ev) => {
 
   switch (button) {
     case 0:
-      leftClicks.textContent = ++totalLeftClicks;
+      leftClicksDown.textContent = ++totalLeftClicksDown;
       break;
     case 1:
-      middleClicks.textContent = ++totalMiddleClicks;
+      middleClicksDown.textContent = ++totalMiddleClicksDown;
       break;
     case 2:
-      rightClicks.textContent = ++totalRightClicks;
+      rightClicksDown.textContent = ++totalRightClicksDown;
       break;
     case 3:
-      backwardClicks.textContent = ++totalBackwardClicks;
+      backwardClicksDown.textContent = ++totalBackwardClicksDown;
       break;
     case 4:
-      forwardClicks.textContent = ++totalForwardClicks;
+      forwardClicksDown.textContent = ++totalForwardClicksDown;
       break;
   }
 });
 
+const leftClicksUp = document.getElementById("left-clicks-up");
+let totalLeftClicksUp = 0;
+
+const middleClicksUp = document.getElementById("middle-clicks-up");
+let totalMiddleClicksUp = 0;
+
+const rightClicksUp = document.getElementById("right-clicks-up");
+let totalRightClicksUp = 0;
+
+const forwardClicksUp = document.getElementById("forward-clicks-up");
+let totalForwardClicksUp = 0;
+
+const backwardClicksUp = document.getElementById("backward-clicks-up");
+let totalBackwardClicksUp = 0;
+
 interaction.addEventListener("mouseup", (ev) => {
   ev.preventDefault();
   ev.stopPropagation();
-  return false;
+
+  const button = ev.button;
+
+  switch (button) {
+    case 0:
+      leftClicksUp.textContent = ++totalLeftClicksUp;
+      break;
+    case 1:
+      middleClicksUp.textContent = ++totalMiddleClicksUp;
+      break;
+    case 2:
+      rightClicksUp.textContent = ++totalRightClicksUp;
+      break;
+    case 3:
+      backwardClicksUp.textContent = ++totalBackwardClicksUp;
+      break;
+    case 4:
+      forwardClicksUp.textContent = ++totalForwardClicksUp;
+      break;
+  }
 });
 
 const scrollUps = document.getElementById("scroll-ups");
@@ -75,8 +109,6 @@ let totalScrollDowns = 0;
 interaction.addEventListener("wheel", (ev) => {
   ev.preventDefault();
   ev.stopPropagation();
-
-  checkThreshold(ev.timeStamp);
 
   const delta = ev.wheelDeltaY;
 

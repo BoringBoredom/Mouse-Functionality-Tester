@@ -31,53 +31,54 @@
     />
     <meta name="twitter:card" content="summary" />
   </head>
-
   <body>
     <div id="indicator">
-      <label>
-        Threshold in ms
+      <div>
+        <label for="threshold"> Threshold in ms </label>
         <input id="threshold" type="number" min="1" max="999" value="50" />
-      </label>
-      <div style="margin-right: 10px">Duplicate Actions</div>
-      <div id="duplicate-actions">0</div>
+      </div>
+      <div>
+        Duplicate mousedown events:&nbsp;<span id="duplicate-actions">0</span>
+      </div>
     </div>
-    <div id="data">
-      <table>
-        <thead>
-          <tr>
-            <th>Left Clicks</th>
-            <th>Middle Clicks</th>
-            <th>Right Clicks</th>
-            <th>Forward Clicks</th>
-            <th>Backward Clicks</th>
-            <th>Scroll Ups</th>
-            <th>Scroll Downs</th>
-            <th id="stop-polling">Approx. Polling</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td id="left-clicks">0</td>
-            <td id="middle-clicks">0</td>
-            <td id="right-clicks">0</td>
-            <td id="forward-clicks">0</td>
-            <td id="backward-clicks">0</td>
-            <td id="scroll-ups">0</td>
-            <td id="scroll-downs">0</td>
-            <td style="display: flex; justify-content: center">
-              <div id="polling-rate"></div>
-              &nbsp;Hz
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Left Clicks</th>
+          <th>Middle Clicks</th>
+          <th>Right Clicks</th>
+          <th>Forward Clicks</th>
+          <th>Backward Clicks</th>
+          <th>Scroll Ups</th>
+          <th>Scroll Downs</th>
+          <th id="stop-polling">Approx. Polling</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>⬇ <span id="left-clicks-down">0</span></td>
+          <td>⬇ <span id="middle-clicks-down">0</span></td>
+          <td>⬇ <span id="right-clicks-down">0</span></td>
+          <td>⬇ <span id="forward-clicks-down">0</span></td>
+          <td>⬇ <span id="backward-clicks-down">0</span></td>
+          <td id="scroll-ups">0</td>
+          <td id="scroll-downs">0</td>
+          <td><span id="polling-rate"></span>&nbsp;Hz</td>
+        </tr>
+        <tr>
+          <td>⬆ <span id="left-clicks-up">0</span></td>
+          <td>⬆ <span id="middle-clicks-up">0</span></td>
+          <td>⬆ <span id="right-clicks-up">0</span></td>
+          <td>⬆ <span id="forward-clicks-up">0</span></td>
+          <td>⬆ <span id="backward-clicks-up">0</span></td>
+        </tr>
+      </tbody>
+    </table>
     <div id="interaction">
       <div>
         <h1>Interaction Area</h1>
       </div>
     </div>
-
     <script src="assets/js/main.js"></script>
   </body>
 </html>
