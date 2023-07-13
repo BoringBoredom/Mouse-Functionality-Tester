@@ -32,52 +32,79 @@
     <meta name="twitter:card" content="summary" />
   </head>
   <body>
-    <div id="indicator">
-      <div>
-        <label for="threshold"> Threshold in ms </label>
-        <input id="threshold" type="number" min="1" max="999" value="50" />
-      </div>
-      <div>
-        Duplicate mousedown events:&nbsp;<span id="duplicate-actions">0</span>
-      </div>
+    <div id="header">
+      <label>
+        Double-Click Mousedown - Mousedown Δ threshold (ms):
+        <input
+          id="threshold"
+          type="number"
+          min="1"
+          max="999"
+          value="50"
+        /> </label
+      >. Open the browser console for individual deltas.
     </div>
-    <table>
-      <thead>
-        <tr>
-          <th>Left Clicks</th>
-          <th>Middle Clicks</th>
-          <th>Right Clicks</th>
-          <th>Forward Clicks</th>
-          <th>Backward Clicks</th>
-          <th>Scroll Ups</th>
-          <th>Scroll Downs</th>
-          <th id="stop-polling">Approx. Polling</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>⬇ <span id="left-clicks-down">0</span></td>
-          <td>⬇ <span id="middle-clicks-down">0</span></td>
-          <td>⬇ <span id="right-clicks-down">0</span></td>
-          <td>⬇ <span id="forward-clicks-down">0</span></td>
-          <td>⬇ <span id="backward-clicks-down">0</span></td>
-          <td id="scroll-ups">0</td>
-          <td id="scroll-downs">0</td>
-          <td><span id="polling-rate"></span>&nbsp;Hz</td>
-        </tr>
-        <tr>
-          <td>⬆ <span id="left-clicks-up">0</span></td>
-          <td>⬆ <span id="middle-clicks-up">0</span></td>
-          <td>⬆ <span id="right-clicks-up">0</span></td>
-          <td>⬆ <span id="forward-clicks-up">0</span></td>
-          <td>⬆ <span id="backward-clicks-up">0</span></td>
-        </tr>
-      </tbody>
-    </table>
     <div id="interaction">
-      <div>
-        <h1>Interaction Area</h1>
-      </div>
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Left</th>
+            <th>Middle</th>
+            <th>Right</th>
+            <th>Backward</th>
+            <th>Forward</th>
+            <th>Scroll ⬆</th>
+            <th>Scroll ⬇</th>
+            <th>≈ Polling</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Total Mousedown</th>
+            <td class="left down">0</td>
+            <td class="middle down">0</td>
+            <td class="right down">0</td>
+            <td class="backward down">0</td>
+            <td class="forward down">0</td>
+            <td id="scroll-up">0</td>
+            <td id="scroll-down">0</td>
+            <td><span id="polling-rate">-</span>&nbsp;Hz</td>
+          </tr>
+          <tr>
+            <th>Total Mouseup</th>
+            <td class="left up">0</td>
+            <td class="middle up">0</td>
+            <td class="right up">0</td>
+            <td class="backward up">0</td>
+            <td class="forward up">0</td>
+          </tr>
+          <tr>
+            <th>Min. Mousedown - Mousedown Δ (ms)</th>
+            <td class="left down-down delta"></td>
+            <td class="middle down-down delta"></td>
+            <td class="right down-down delta"></td>
+            <td class="backward down-down delta"></td>
+            <td class="forward down-down delta"></td>
+          </tr>
+          <tr>
+            <th>Min. Mousedown - Mouseup Δ (ms)</th>
+            <td class="left down-up delta"></td>
+            <td class="middle down-up delta"></td>
+            <td class="right down-up delta"></td>
+            <td class="backward down-up delta"></td>
+            <td class="forward down-up delta"></td>
+          </tr>
+          <tr>
+            <th>Total Double-Clicks</th>
+            <td class="left double">0</td>
+            <td class="middle double">0</td>
+            <td class="right double">0</td>
+            <td class="backward double">0</td>
+            <td class="forward double">0</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <script src="assets/js/main.js"></script>
   </body>

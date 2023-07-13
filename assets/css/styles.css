@@ -5,40 +5,43 @@ body {
 
 body {
   margin: 0;
+  padding: 0;
+  border: 0;
   display: flex;
   flex-direction: column;
-  font-size: 18px;
-  text-align: center;
+  font-size: 1.1rem;
   background-color: rgb(40, 40, 40);
   color: white;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
-#indicator {
-  padding: 1rem 0;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  background-color: green;
+#header {
+  padding: 1rem;
   font-weight: 700;
-}
-
-table {
-  padding: 1rem 0;
-  width: 100%;
-  border-width: 1px;
+  border-width: 2px;
   border-bottom-style: solid;
   border-color: rgba(255, 255, 255, 0.1);
 }
 
-#stop-polling:hover {
-  cursor: pointer;
+table {
+  padding: 0.5rem 1rem;
+  width: 100%;
+}
+
+tbody th {
+  text-align: left;
+}
+
+td,
+th {
+  text-align: right;
 }
 
 #interaction {
   flex-grow: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+}
+
+.warning {
+  background-color: red;
 }
