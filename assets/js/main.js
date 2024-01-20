@@ -100,7 +100,7 @@ function handleMousedown(ev) {
     if (delta < thresholdValue) {
       button.elements.totalDoubleDown.textContent = ++button.totalDoubleDown;
 
-      if (button.totalDoubleDown == 1) {
+      if (button.totalDoubleDown === 1) {
         button.elements.totalDoubleDown.classList.add("warning");
       }
     }
@@ -182,7 +182,9 @@ interaction.addEventListener("pointermove", (ev) => {
     previousMoveTimeStamp = event.timeStamp;
 
     if (moveDeltas >= 1000) {
-      pollingRate.textContent = Math.round(1000 / (moveDeltas / moveCounter));
+      const reportRate = Math.round(1000 / (moveDeltas / moveCounter));
+      pollingRate.textContent = reportRate;
+      console.log(`Approximate Report Rate: ${reportRate} Hz`);
       moveDeltas = moveCounter = 0;
     }
   }
