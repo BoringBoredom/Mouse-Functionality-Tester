@@ -182,9 +182,7 @@ interaction.addEventListener("pointermove", (ev) => {
     previousMoveTimeStamp = event.timeStamp;
 
     if (moveDeltas >= 1000) {
-      const reportRate = Math.round(1000 / (moveDeltas / moveCounter));
-      pollingRate.textContent = reportRate;
-      console.log(`Approximate Report Rate: ${reportRate} Hz`);
+      pollingRate.textContent = Math.round(1000 / (moveDeltas / moveCounter));
       moveDeltas = moveCounter = 0;
     }
   }
