@@ -111,7 +111,9 @@ function handleMousedown(ev) {
     }
 
     console.log(
-      `%c${button.name}: Mousedown - Mousedown Δ: ${delta} ms`,
+      `%c${button.name.padEnd(8)} | Down - Down Δ | ${delta
+        .toFixed(1)
+        .padStart(7)} ms`,
       "color: black; background-color: white"
     );
   }
@@ -132,7 +134,9 @@ function handleMouseup(ev) {
   }
 
   console.log(
-    `%c${button.name}: Mousedown - Mouseup Δ: ${delta} ms`,
+    `%c${button.name.padEnd(8)} | Down - Up   Δ | ${delta
+      .toFixed(1)
+      .padStart(7)} ms`,
     "color: white; background-color: black"
   );
 
