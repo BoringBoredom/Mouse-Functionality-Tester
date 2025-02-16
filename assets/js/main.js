@@ -175,20 +175,17 @@ interaction.addEventListener("wheel", (ev) => {
 });
 
 const pollingRate = document.getElementById("polling-rate");
-let moveDeltas = 0;
-let moveCounter = 0;
-let previousMoveTimeStamp = 0;
+let counts = 0;
+let lastRefresh = performance.now();
 
 interaction.addEventListener("pointermove", (ev) => {
-  for (const event of ev.getCoalescedEvents()) {
-    moveDeltas += event.timeStamp - previousMoveTimeStamp;
-    moveCounter++;
-    previousMoveTimeStamp = event.timeStamp;
+  counts += ev.getCoalescedEvents().length;
+  const delta = ev.timeStamp - lastRefresh;
 
-    if (moveDeltas >= 1000) {
-      pollingRate.textContent = Math.round(1000 / (moveDeltas / moveCounter));
-      moveDeltas = moveCounter = 0;
-    }
+  if (delta >= 1000) {
+    pollingRate.textContent = Math.round((counts * 1000) / delta);
+    counts = 0;
+    lastRefresh = ev.timeStamp;
   }
 });
 
