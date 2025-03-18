@@ -1,95 +1,24 @@
-const interaction = document.getElementById("interaction");
-const threshold = document.getElementById("threshold");
-
 let thresholdValue = threshold.value;
 
-const buttons = [
-  {
-    name: "Left",
+const buttons = ["left", "middle", "right", "backward", "forward"].map(
+  (button) => ({
+    name: button.charAt(0).toUpperCase() + button.slice(1),
     elements: {
-      totalDown: document.querySelector(".left.down"),
-      totalUp: document.querySelector(".left.up"),
-      totalDoubleDown: document.querySelector(".left.double"),
-      minDownDownDelta: document.querySelector(".left.down-down.delta"),
-      minDownUpDelta: document.querySelector(".left.down-up.delta"),
+      totalDown: document.querySelector(`.down > .${button}`),
+      totalUp: document.querySelector(`.up > .${button}`),
+      totalDoubleDown: document.querySelector(`.double > .${button}`),
+      minDownDownDelta: document.querySelector(`.down-down-delta > .${button}`),
+      minDownUpDelta: document.querySelector(`.down-up-delta > .${button}`),
     },
     totalDown: 0,
     totalUp: 0,
     totalDoubleDown: 0,
-    minDownDownDelta: 999999,
-    minDownUpDelta: 999999,
+    minDownDownDelta: Infinity,
+    minDownUpDelta: Infinity,
     lastDownTimeStamp: 0,
     first: true,
-  },
-  {
-    name: "Middle",
-    elements: {
-      totalDown: document.querySelector(".middle.down"),
-      totalUp: document.querySelector(".middle.up"),
-      totalDoubleDown: document.querySelector(".middle.double"),
-      minDownDownDelta: document.querySelector(".middle.down-down.delta"),
-      minDownUpDelta: document.querySelector(".middle.down-up.delta"),
-    },
-    totalDown: 0,
-    totalUp: 0,
-    totalDoubleDown: 0,
-    minDownDownDelta: 999999,
-    minDownUpDelta: 999999,
-    lastDownTimeStamp: 0,
-    first: true,
-  },
-  {
-    name: "Right",
-    elements: {
-      totalDown: document.querySelector(".right.down"),
-      totalUp: document.querySelector(".right.up"),
-      totalDoubleDown: document.querySelector(".right.double"),
-      minDownDownDelta: document.querySelector(".right.down-down.delta"),
-      minDownUpDelta: document.querySelector(".right.down-up.delta"),
-    },
-    totalDown: 0,
-    totalUp: 0,
-    totalDoubleDown: 0,
-    minDownDownDelta: 999999,
-    minDownUpDelta: 999999,
-    lastDownTimeStamp: 0,
-    first: true,
-  },
-  {
-    name: "Backward",
-    elements: {
-      totalDown: document.querySelector(".backward.down"),
-      totalUp: document.querySelector(".backward.up"),
-      totalDoubleDown: document.querySelector(".backward.double"),
-      minDownDownDelta: document.querySelector(".backward.down-down.delta"),
-      minDownUpDelta: document.querySelector(".backward.down-up.delta"),
-    },
-    totalDown: 0,
-    totalUp: 0,
-    totalDoubleDown: 0,
-    minDownDownDelta: 999999,
-    minDownUpDelta: 999999,
-    lastDownTimeStamp: 0,
-    first: true,
-  },
-  {
-    name: "Forward",
-    elements: {
-      totalDown: document.querySelector(".forward.down"),
-      totalUp: document.querySelector(".forward.up"),
-      totalDoubleDown: document.querySelector(".forward.double"),
-      minDownDownDelta: document.querySelector(".forward.down-down.delta"),
-      minDownUpDelta: document.querySelector(".forward.down-up.delta"),
-    },
-    totalDown: 0,
-    totalUp: 0,
-    totalDoubleDown: 0,
-    minDownDownDelta: 999999,
-    minDownUpDelta: 999999,
-    lastDownTimeStamp: 0,
-    first: true,
-  },
-];
+  })
+);
 
 function handleMousedown(ev) {
   const button = buttons[ev.button];
@@ -157,10 +86,7 @@ interaction.addEventListener("mouseup", (ev) => {
   handleMouseup(ev);
 });
 
-const scrollUp = document.getElementById("scroll-up");
 let totalScrollUp = 0;
-
-const scrollDown = document.getElementById("scroll-down");
 let totalScrollDown = 0;
 
 interaction.addEventListener("wheel", (ev) => {
@@ -174,7 +100,6 @@ interaction.addEventListener("wheel", (ev) => {
   }
 });
 
-const pollingRate = document.getElementById("polling-rate");
 let counts = 0;
 let lastRefresh = performance.now();
 
