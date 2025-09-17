@@ -47,6 +47,8 @@ th {
   width: fit-content;
   cursor: pointer;
   font-size: 2rem;
+  padding: 0.5rem 1rem;
+  background-color: rgb(50, 50, 50);
 }
 
 .warning {
