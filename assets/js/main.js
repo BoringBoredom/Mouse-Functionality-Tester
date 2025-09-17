@@ -93,9 +93,9 @@ interaction.addEventListener("wheel", (ev) => {
   ev.preventDefault();
   ev.stopPropagation();
 
-  if (ev.wheelDeltaY > 0) {
+  if (ev.deltaY < 0) {
     scrollUp.textContent = ++totalScrollUp;
-  } else if (ev.wheelDeltaY < 0) {
+  } else if (ev.deltaY > 0) {
     scrollDown.textContent = ++totalScrollDown;
   }
 });
@@ -103,7 +103,7 @@ interaction.addEventListener("wheel", (ev) => {
 let counts = 0;
 let lastRefresh = performance.now();
 
-interaction.addEventListener("pointermove", (ev) => {
+function handlePointerRawUpdate(ev) {
   counts += ev.getCoalescedEvents().length;
   const delta = ev.timeStamp - lastRefresh;
 
@@ -111,6 +111,19 @@ interaction.addEventListener("pointermove", (ev) => {
     pollingRate.textContent = Math.round((counts * 1000) / delta);
     counts = 0;
     lastRefresh = ev.timeStamp;
+  }
+}
+
+lockCursor.addEventListener("click", () => {
+  lockCursor.requestPointerLock({ unadjustedMovement: true });
+});
+
+document.addEventListener("pointerlockchange", () => {
+  if (document.pointerLockElement === lockCursor) {
+    lockCursor.addEventListener("pointerrawupdate", handlePointerRawUpdate);
+  } else {
+    lockCursor.removeEventListener("pointerrawupdate", handlePointerRawUpdate);
+    pollingRate.textContent = "-";
   }
 });
 

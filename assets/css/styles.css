@@ -42,6 +42,13 @@ th {
   flex-grow: 1;
 }
 
+#lockCursor {
+  margin: 2rem auto 0;
+  width: fit-content;
+  cursor: pointer;
+  font-size: 2rem;
+}
+
 .warning {
   background-color: red;
 }
