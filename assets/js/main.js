@@ -108,7 +108,7 @@ function handlePointerRawUpdate(ev) {
   const delta = ev.timeStamp - lastRefresh;
 
   if (delta >= 1000) {
-    pollingRate.textContent = Math.round((counts * 1000) / delta);
+    reportRate.textContent = Math.round((counts * 1000) / delta);
     counts = 0;
     lastRefresh = ev.timeStamp;
   }
@@ -126,7 +126,7 @@ document.addEventListener("pointerlockchange", () => {
   } else {
     lockCursor.removeEventListener("pointerrawupdate", handlePointerRawUpdate);
     lockCursor.textContent = "Click here to measure the report rate.";
-    pollingRate.textContent = "-";
+    reportRate.textContent = "-";
   }
 });
 
