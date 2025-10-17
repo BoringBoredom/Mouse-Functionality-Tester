@@ -121,11 +121,11 @@ lockCursor.addEventListener("click", () => {
 document.addEventListener("pointerlockchange", () => {
   if (document.pointerLockElement === lockCursor) {
     lockCursor.addEventListener("pointerrawupdate", handlePointerRawUpdate);
-    lockCursor.textContent =
+    instructions.textContent =
       "Quickly move the mouse in circles. Press ESC to stop measuring.";
   } else {
     lockCursor.removeEventListener("pointerrawupdate", handlePointerRawUpdate);
-    lockCursor.textContent = "Click here to measure the report rate.";
+    instructions.textContent = "Click here to measure the report rate.";
     reportRate.textContent = "-";
   }
 });

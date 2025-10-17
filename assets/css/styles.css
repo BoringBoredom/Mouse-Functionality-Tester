@@ -45,9 +45,16 @@ th {
   margin: 2rem auto 0;
   width: fit-content;
   cursor: pointer;
-  font-size: 2rem;
   padding: 0.5rem;
   background-color: rgb(50, 50, 50);
+}
+
+#instructions {
+  font-size: 2rem;
+}
+
+#note a {
+  color: lightblue;
 }
 
 .warning {
