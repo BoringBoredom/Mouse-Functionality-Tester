@@ -95,14 +95,12 @@ interaction.addEventListener("wheel", (ev) => {
   ev.preventDefault();
   ev.stopPropagation();
 
-  // Vertical scrolling
   if (ev.deltaY < 0) {
     scrollUp.textContent = ++totalScrollUp;
   } else if (ev.deltaY > 0) {
     scrollDown.textContent = ++totalScrollDown;
   }
 
-  // Horizontal scrolling
   if (ev.deltaX < 0) {
     scrollLeft.textContent = ++totalScrollLeft;
   } else if (ev.deltaX > 0) {
