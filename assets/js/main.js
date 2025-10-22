@@ -88,15 +88,25 @@ interaction.addEventListener("mouseup", (ev) => {
 
 let totalScrollUp = 0;
 let totalScrollDown = 0;
+let totalScrollLeft = 0;
+let totalScrollRight = 0;
 
 interaction.addEventListener("wheel", (ev) => {
   ev.preventDefault();
   ev.stopPropagation();
 
+  // Vertical scrolling
   if (ev.deltaY < 0) {
     scrollUp.textContent = ++totalScrollUp;
   } else if (ev.deltaY > 0) {
     scrollDown.textContent = ++totalScrollDown;
+  }
+
+  // Horizontal scrolling
+  if (ev.deltaX < 0) {
+    scrollLeft.textContent = ++totalScrollLeft;
+  } else if (ev.deltaX > 0) {
+    scrollRight.textContent = ++totalScrollRight;
   }
 });
 
