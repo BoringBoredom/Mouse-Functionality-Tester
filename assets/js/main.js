@@ -38,14 +38,14 @@ interaction.addEventListener("mousedown", (ev) => {
     }
 
     if (delta < button.minDownDownDelta) {
-      button.elements.minDownDownDelta.textContent = delta.toFixed(1);
+      button.elements.minDownDownDelta.textContent = delta.toFixed(2);
       button.minDownDownDelta = delta;
     }
 
     console.log(
       `%c${button.name.padEnd(8)} | Down - Down Δ | ${delta
-        .toFixed(1)
-        .padStart(7)} ms`,
+        .toFixed(2)
+        .padStart(8)} ms`,
       "color: black; background-color: white",
     );
   }
@@ -64,14 +64,14 @@ interaction.addEventListener("mouseup", (ev) => {
   const delta = ev.timeStamp - button.lastDownTimeStamp;
 
   if (delta < button.minDownUpDelta) {
-    button.elements.minDownUpDelta.textContent = delta.toFixed(1);
+    button.elements.minDownUpDelta.textContent = delta.toFixed(2);
     button.minDownUpDelta = delta;
   }
 
   console.log(
     `%c${button.name.padEnd(8)} | Down - Up   Δ | ${delta
-      .toFixed(1)
-      .padStart(7)} ms`,
+      .toFixed(2)
+      .padStart(8)} ms`,
     "color: white; background-color: black",
   );
 
@@ -107,7 +107,7 @@ function handlePointerUpdate(ev) {
   counts += ev.getCoalescedEvents().length;
   const delta = ev.timeStamp - lastRefresh;
 
-  if (delta >= 1000) {
+  if (delta >= 500) {
     reportRate.textContent = Math.round((counts * 1000) / delta);
     counts = 0;
     lastRefresh = ev.timeStamp;
