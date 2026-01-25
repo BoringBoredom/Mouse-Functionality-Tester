@@ -118,9 +118,9 @@ const supportsPointerLock = "requestPointerLock" in Element.prototype;
 const supportsPointerRawUpdate = "onpointerrawupdate" in window;
 
 if (supportsPointerLock) {
-  lockCursor.addEventListener("click", () => {
+  lockCursor.addEventListener("click", async () => {
     try {
-      lockCursor.requestPointerLock({ unadjustedMovement: true });
+      await lockCursor.requestPointerLock({ unadjustedMovement: true });
     } catch {
       note.innerHTML += `${note.textContent ? "<br />" : ""}Your browser does not support <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/requestPointerLock#browser_compatibility">unadjustedMovement</a>. Expect reduced accuracy.`;
       lockCursor.requestPointerLock();
