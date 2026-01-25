@@ -17,10 +17,13 @@ const buttons = ["left", "middle", "right", "backward", "forward"].map(
     minDownUpDelta: Infinity,
     lastDownTimeStamp: 0,
     first: true,
-  })
+  }),
 );
 
-function handleMousedown(ev) {
+interaction.addEventListener("mousedown", (ev) => {
+  ev.preventDefault();
+  ev.stopPropagation();
+
   const button = buttons[ev.button];
 
   if (!button.first) {
@@ -43,7 +46,7 @@ function handleMousedown(ev) {
       `%c${button.name.padEnd(8)} | Down - Down Δ | ${delta
         .toFixed(1)
         .padStart(7)} ms`,
-      "color: black; background-color: white"
+      "color: black; background-color: white",
     );
   }
 
@@ -51,9 +54,12 @@ function handleMousedown(ev) {
 
   button.elements.totalDown.textContent = ++button.totalDown;
   button.lastDownTimeStamp = ev.timeStamp;
-}
+});
 
-function handleMouseup(ev) {
+interaction.addEventListener("mouseup", (ev) => {
+  ev.preventDefault();
+  ev.stopPropagation();
+
   const button = buttons[ev.button];
   const delta = ev.timeStamp - button.lastDownTimeStamp;
 
@@ -66,24 +72,10 @@ function handleMouseup(ev) {
     `%c${button.name.padEnd(8)} | Down - Up   Δ | ${delta
       .toFixed(1)
       .padStart(7)} ms`,
-    "color: white; background-color: black"
+    "color: white; background-color: black",
   );
 
   button.elements.totalUp.textContent = ++button.totalUp;
-}
-
-interaction.addEventListener("mousedown", (ev) => {
-  ev.preventDefault();
-  ev.stopPropagation();
-
-  handleMousedown(ev);
-});
-
-interaction.addEventListener("mouseup", (ev) => {
-  ev.preventDefault();
-  ev.stopPropagation();
-
-  handleMouseup(ev);
 });
 
 let totalScrollUp = 0;
@@ -111,7 +103,7 @@ interaction.addEventListener("wheel", (ev) => {
 let counts = 0;
 let lastRefresh = performance.now();
 
-function handlePointerRawUpdate(ev) {
+function handlePointerUpdate(ev) {
   counts += ev.getCoalescedEvents().length;
   const delta = ev.timeStamp - lastRefresh;
 
@@ -122,21 +114,39 @@ function handlePointerRawUpdate(ev) {
   }
 }
 
-lockCursor.addEventListener("click", () => {
-  lockCursor.requestPointerLock({ unadjustedMovement: true });
-});
+const supportsPointerLock = "requestPointerLock" in Element.prototype;
+const supportsPointerRawUpdate = "onpointerrawupdate" in window;
 
-document.addEventListener("pointerlockchange", () => {
-  if (document.pointerLockElement === lockCursor) {
-    lockCursor.addEventListener("pointerrawupdate", handlePointerRawUpdate);
-    instructions.textContent =
-      "Quickly move the mouse in circles. Press ESC to stop measuring.";
-  } else {
-    lockCursor.removeEventListener("pointerrawupdate", handlePointerRawUpdate);
-    instructions.textContent = "Click here to measure the report rate.";
-    reportRate.textContent = "-";
+if (supportsPointerLock) {
+  lockCursor.addEventListener("click", () => {
+    try {
+      lockCursor.requestPointerLock({ unadjustedMovement: true });
+    } catch {
+      note.innerHTML += `${note.textContent ? "<br />" : ""}Your browser does not support <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/requestPointerLock#browser_compatibility">unadjustedMovement</a>. Expect reduced accuracy.`;
+      lockCursor.requestPointerLock();
+    }
+  });
+
+  let pointerEvent = "pointerrawupdate";
+  if (!supportsPointerRawUpdate) {
+    pointerEvent = "pointermove";
+    note.innerHTML += `${note.textContent ? "<br />" : ""}Your browser does not support <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerrawupdate_event#browser_compatibility">pointerrawupdate</a>. Expect reduced accuracy.`;
   }
-});
+
+  document.addEventListener("pointerlockchange", () => {
+    if (document.pointerLockElement === lockCursor) {
+      lockCursor.addEventListener(pointerEvent, handlePointerUpdate);
+      instructions.textContent =
+        "Quickly move the mouse in circles. Press ESC to stop measuring.";
+    } else {
+      lockCursor.removeEventListener(pointerEvent, handlePointerUpdate);
+      instructions.textContent = "Click here to measure the report rate.";
+      reportRate.textContent = "-";
+    }
+  });
+} else {
+  instructions.innerHTML = `Unable to measure the report rate. Your browser does not support <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/requestPointerLock#browser_compatibility">requestPointerLock()</a>.`;
+}
 
 threshold.addEventListener("input", () => {
   thresholdValue = threshold.value;
