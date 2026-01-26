@@ -116,30 +116,53 @@ function handlePointerUpdate(ev) {
 
 const supportsPointerLock = "requestPointerLock" in Element.prototype;
 const supportsPointerRawUpdate = "onpointerrawupdate" in window;
+let supportsUnadjustedMovement = true;
+
+const unadjustedMovementNote = `Your browser does not support <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/requestPointerLock#browser_compatibility">unadjustedMovement</a>.`;
+const pointerRawUpdateNote = `Your browser does not support <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerrawupdate_event#browser_compatibility">pointerrawupdate</a>.`;
+
+function generateNote() {
+  const notes = [];
+
+  if (!supportsPointerRawUpdate) {
+    notes.push(pointerRawUpdateNote);
+  }
+
+  if (!supportsUnadjustedMovement) {
+    notes.push(unadjustedMovementNote);
+  }
+
+  if (notes.length > 0) {
+    notes.push("Expect reduced accuracy.");
+  }
+
+  return notes.join("<br />");
+}
 
 if (supportsPointerLock) {
   lockCursor.addEventListener("click", async () => {
     try {
-      await lockCursor.requestPointerLock({ unadjustedMovement: true });
+      await document.body.requestPointerLock({ unadjustedMovement: true });
     } catch {
-      note.innerHTML += `${note.textContent ? "<br />" : ""}Your browser does not support <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/requestPointerLock#browser_compatibility">unadjustedMovement</a>. Expect reduced accuracy.`;
-      lockCursor.requestPointerLock();
+      supportsUnadjustedMovement = false;
+      note.innerHTML = generateNote();
+      document.body.requestPointerLock();
     }
   });
 
   let pointerEvent = "pointerrawupdate";
   if (!supportsPointerRawUpdate) {
     pointerEvent = "pointermove";
-    note.innerHTML += `${note.textContent ? "<br />" : ""}Your browser does not support <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerrawupdate_event#browser_compatibility">pointerrawupdate</a>. Expect reduced accuracy.`;
+    note.innerHTML = generateNote();
   }
 
   document.addEventListener("pointerlockchange", () => {
-    if (document.pointerLockElement === lockCursor) {
-      lockCursor.addEventListener(pointerEvent, handlePointerUpdate);
+    if (document.pointerLockElement === document.body) {
+      document.addEventListener(pointerEvent, handlePointerUpdate);
       instructions.textContent =
         "Quickly move the mouse in circles. Press ESC to stop measuring.";
     } else {
-      lockCursor.removeEventListener(pointerEvent, handlePointerUpdate);
+      document.removeEventListener(pointerEvent, handlePointerUpdate);
       instructions.textContent = "Click here to measure the report rate.";
       reportRate.textContent = "-";
     }
