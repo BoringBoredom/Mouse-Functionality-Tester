@@ -139,14 +139,34 @@ function generateNote() {
   return notes.join("<br />");
 }
 
-if (supportsPointerLock) {
-  lockCursor.addEventListener("click", async () => {
+async function reqPointerLock() {
+  try {
+    await document.body.requestPointerLock({ unadjustedMovement: true });
+  } catch {
     try {
-      await document.body.requestPointerLock({ unadjustedMovement: true });
-    } catch {
+      await document.body.requestPointerLock();
       supportsUnadjustedMovement = false;
       note.innerHTML = generateNote();
-      document.body.requestPointerLock();
+    } catch (e) {
+      console.error(e);
+    }
+  }
+}
+
+if (supportsPointerLock) {
+  lockPointer.addEventListener("click", () => {
+    reqPointerLock();
+  });
+
+  document.addEventListener("keydown", (ev) => {
+    if (ev.key !== "F2") {
+      return;
+    }
+
+    if (document.pointerLockElement === document.body) {
+      document.exitPointerLock();
+    } else {
+      reqPointerLock();
     }
   });
 
@@ -160,10 +180,11 @@ if (supportsPointerLock) {
     if (document.pointerLockElement === document.body) {
       document.addEventListener(pointerEvent, handlePointerUpdate);
       instructions.textContent =
-        "Quickly move the mouse in circles. Press ESC to stop measuring.";
+        "Quickly move the mouse in circles. Press ESC or F2 to stop measuring.";
     } else {
       document.removeEventListener(pointerEvent, handlePointerUpdate);
-      instructions.textContent = "Click here to measure the report rate.";
+      instructions.textContent =
+        "Click here or press F2 to measure the report rate.";
       reportRate.textContent = "-";
     }
   });

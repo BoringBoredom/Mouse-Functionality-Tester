@@ -41,7 +41,7 @@ th {
   flex-grow: 1;
 }
 
-#lockCursor {
+#lockPointer {
   margin: 2rem auto 0;
   width: fit-content;
   cursor: pointer;
