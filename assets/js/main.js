@@ -201,3 +201,21 @@ window.addEventListener("contextmenu", (ev) => {
   ev.stopPropagation();
   return false;
 });
+
+const resSamples = [];
+for (let i = 0; i < 100; i++) {
+  const start = performance.now();
+  let end = start;
+
+  while (end === start) {
+    end = performance.now();
+  }
+
+  resSamples.push(end - start);
+}
+
+const minResolution = Math.round(Math.min(...resSamples) * 1000);
+if (minResolution > 5) {
+  resolution.style.color = "red";
+}
+resolution.textContent = `Timestamp resolution: ${minResolution} μs`;

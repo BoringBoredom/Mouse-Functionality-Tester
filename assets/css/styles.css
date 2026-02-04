@@ -61,3 +61,11 @@ th {
 .warning {
   background-color: red;
 }
+
+#resolution {
+  position: fixed;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  color: green;
+  font-size: 0.8rem;
+}
