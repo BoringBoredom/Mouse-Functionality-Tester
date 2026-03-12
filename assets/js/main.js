@@ -141,14 +141,31 @@ function generateNote() {
 
 async function reqPointerLock() {
   try {
-    await document.body.requestPointerLock({ unadjustedMovement: true });
-  } catch {
+    const pointerLockResult = document.body.requestPointerLock({
+      unadjustedMovement: true,
+    });
+
+    if (pointerLockResult && typeof pointerLockResult.then === "function") {
+      await pointerLockResult;
+      return;
+    }
+
+    supportsUnadjustedMovement = false;
+    note.innerHTML = generateNote();
+  } catch (e) {
+    supportsUnadjustedMovement = false;
+    note.innerHTML = generateNote();
+
     try {
-      await document.body.requestPointerLock();
-      supportsUnadjustedMovement = false;
-      note.innerHTML = generateNote();
-    } catch (e) {
-      console.error(e);
+      const fallbackPointerLockResult = document.body.requestPointerLock();
+      if (
+        fallbackPointerLockResult &&
+        typeof fallbackPointerLockResult.then === "function"
+      ) {
+        await fallbackPointerLockResult;
+      }
+    } catch (fallbackError) {
+      console.error(fallbackError);
     }
   }
 }

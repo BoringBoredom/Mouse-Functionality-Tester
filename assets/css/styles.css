@@ -53,6 +53,10 @@ th {
   font-size: 2rem;
 }
 
+#note {
+  color: red;
+}
+
 #instructions a,
 #note a {
   color: lightblue;
