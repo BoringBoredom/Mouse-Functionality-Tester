@@ -220,6 +220,7 @@ window.addEventListener("contextmenu", (ev) => {
 });
 
 const resSamples = [];
+const firstTimeStamp = performance.now();
 for (let i = 0; i < 100; i++) {
   const start = performance.now();
   let end = start;
@@ -229,10 +230,12 @@ for (let i = 0; i < 100; i++) {
   }
 
   resSamples.push(end - start);
+
+  if (end - firstTimeStamp > 100) {
+    break;
+  }
 }
 
 const minResolution = Math.round(Math.min(...resSamples) * 1000);
-if (minResolution > 5) {
-  resolution.style.color = "red";
-}
+resolution.style.color = minResolution > 10 ? "red" : "green";
 resolution.textContent = `Timestamp resolution: ${minResolution} μs`;
